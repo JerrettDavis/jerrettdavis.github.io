@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JD Davis — Software Engineer</title>
+<meta name="description" content="Full-stack software engineer based in Tulsa, Oklahoma. Building scalable architecture, automation, and developer tooling.">
+<meta property="og:title" content="JD Davis — Software Engineer">
+<meta property="og:description" content="Full-stack software engineer. Scalable architecture, automation, developer experience.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jerrettdavis.github.io">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+/* ── Theme System ──────────────────────────────────── */
+:root {
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Newsreader', Georgia, serif;
+
+  /* Light theme */
+  --bg: oklch(0.97 0.005 80);
+  --bg-elevated: oklch(0.99 0.003 80);
+  --text: oklch(0.18 0.02 260);
+  --text-secondary: oklch(0.45 0.02 260);
+  --text-tertiary: oklch(0.62 0.015 260);
+  --accent: oklch(0.55 0.18 260);
+  --accent-hover: oklch(0.48 0.2 260);
+  --accent-subtle: oklch(0.92 0.04 260);
+  --border: oklch(0.88 0.01 80);
+  --border-strong: oklch(0.78 0.015 80);
+  --surface: oklch(0.94 0.008 80);
+  --tag-bg: oklch(0.93 0.015 260);
+  --tag-text: oklch(0.4 0.08 260);
+  --highlight: oklch(0.75 0.15 80);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: oklch(0.13 0.015 260);
+    --bg-elevated: oklch(0.17 0.018 260);
+    --text: oklch(0.92 0.01 80);
+    --text-secondary: oklch(0.7 0.015 80);
+    --text-tertiary: oklch(0.52 0.01 80);
+    --accent: oklch(0.72 0.14 260);
+    --accent-hover: oklch(0.78 0.16 260);
+    --accent-subtle: oklch(0.22 0.04 260);
+    --border: oklch(0.25 0.02 260);
+    --border-strong: oklch(0.35 0.025 260);
+    --surface: oklch(0.19 0.02 260);
+    --tag-bg: oklch(0.22 0.03 260);
+    --tag-text: oklch(0.78 0.08 260);
+    --highlight: oklch(0.55 0.12 80);
+  }
+}
+
+/* ── Reset & Base ──────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  font-size: clamp(15px, 1vw + 12px, 18px);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-hover); }
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* ── Layout ────────────────────────────────────────── */
+.container {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.5rem, 4vw, 3rem);
+}
+
+/* ── Header ────────────────────────────────────────── */
+header {
+  padding: clamp(1rem, 2vw, 1.5rem) 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: color-mix(in oklch, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+.wordmark span {
+  color: var(--accent);
+}
+
+nav { display: flex; gap: 2rem; align-items: center; }
+
+nav a {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+nav a:hover { color: var(--text); }
+
+/* ── Hero ──────────────────────────────────────────── */
+.hero {
+  padding: clamp(5rem, 12vh, 10rem) 0 clamp(3rem, 8vh, 6rem);
+  position: relative;
+}
+
+.hero-overline {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  max-width: 18ch;
+  margin-bottom: 2rem;
+}
+
+.hero-description {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 42ch;
+  margin-bottom: 3rem;
+}
+
+.hero-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  color: var(--bg);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  border-color: var(--text-secondary);
+  transform: translateY(-1px);
+}
+
+/* ── Section ───────────────────────────────────────── */
+section {
+  padding: clamp(4rem, 8vh, 7rem) 0;
+}
+
+.section-label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 3rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  display: inline-block;
+}
+
+/* ── Projects ──────────────────────────────────────── */
+.projects-grid {
+  display: grid;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.project {
+  background: var(--bg);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  transition: background 0.2s;
+}
+
+.project:hover {
+  background: var(--bg-elevated);
+}
+
+.project-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+
+.project-name a {
+  color: var(--text);
+}
+
+.project-name a:hover {
+  color: var(--accent);
+}
+
+.project-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 50ch;
+}
+
+.project-meta {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.tag {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.2rem 0.55rem;
+  background: var(--tag-bg);
+  color: var(--tag-text);
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+}
+
+.project-stars {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  padding-top: 0.2rem;
+}
+
+/* ── About ─────────────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: clamp(3rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.about-text {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.about-text p + p {
+  margin-top: 1.2rem;
+}
+
+.about-text strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.stats {
+  display: grid;
+  gap: 2rem;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-top: 0.3rem;
+}
+
+/* ── Open Source ────────────────────────────────────── */
+.oss-intro {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 55ch;
+  line-height: 1.75;
+  margin-bottom: 3rem;
+}
+
+/* ── Experience ────────────────────────────────────── */
+.timeline {
+  display: grid;
+  gap: 0;
+}
+
+.timeline-entry {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  gap: 2rem;
+  padding: 2rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.timeline-entry:first-child {
+  border-top: 1px solid var(--border);
+}
+
+.timeline-date {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  padding-top: 0.2rem;
+}
+
+.timeline-role {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-company {
+  font-size: 0.9rem;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-desc {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ── Footer ────────────────────────────────────────── */
+footer {
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.5rem;
+}
+
+.footer-tagline {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+}
+
+.footer-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.footer-links a {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.footer-links a:hover { color: var(--text); }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .timeline-entry {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .project {
+    grid-template-columns: 1fr;
+  }
+
+  nav { gap: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .stats {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── Entrance animations ───────────────────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in:nth-child(2) { animation-delay: 0.08s; }
+.fade-in:nth-child(3) { animation-delay: 0.16s; }
+.fade-in:nth-child(4) { animation-delay: 0.24s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <div class="wordmark">jd<span>.</span></div>
+    <nav>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="https://jerrettdavis.com/blog" target="_blank">Blog</a>
+      <a href="https://github.com/JerrettDavis" target="_blank">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <span class="hero-overline fade-in">Software Engineer &middot; Tulsa, OK</span>
+      <h1 class="fade-in">I build tools that engineers actually want to use.</h1>
+      <p class="hero-description fade-in">Full-stack engineer specializing in scalable architecture, developer tooling, and automation. I ship open-source libraries, AI-powered assistants, and infrastructure that makes teams faster.</p>
+      <div class="hero-links fade-in">
+        <a href="https://github.com/JerrettDavis" class="btn btn-primary" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+        <a href="https://jerrettdavis.com" class="btn btn-ghost" target="_blank">Blog &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">Featured Projects</div>
+      <div class="projects-grid">
+
+        <div class="project">
+          <div>
+            <div class="project-name"><a href="https://github.com/JerrettDavis/JD.AI" target="_blank">JD.AI</a></div>
+            <div class="project-desc">AI-powered terminal assistant built on Semantic Kernel. Multi-provider support (Ollama, Claude, Codex), Discord/Slack/Telegram channels, real tool execution, and autonomous agent orchestration.</div>
+            <div class="project-meta">
+              <span class="tag">C#</span>
+              <span class="tag">Semantic Kernel</span>
+              <span class="tag">AI Agents</span>
+            </div>
+          </div>
+          <div class="project-stars">&#9733; 1</div>
+        </div>
+
+        <div class="project">
+          <div>
+            <div class="project-name"><a href="https://github.com/JerrettDavis/JD.Efcpt.Build" target="_blank">JD.Efcpt.Build</a></div>
+            <div class="project-desc">Database-first EF Core model generation automated via MSBuild. Drop it in your project, point it at a database, and get strongly-typed models on every build.</div>
+            <div class="project-meta">
+              <span class="tag">C#</span>
+              <span class="tag">MSBuild</span>
+              <span class="tag">EF Core</span>
+            </div>
+          </div>
+          <div class="project-stars">&#9733; 11</div>
+        </div>
+
+        <div class="project">
+          <div>
+            <div class="project-name"><a href="https://github.com/JerrettDavis/McpManager" target="_blank">McpManager</a></div>
+            <div class="project-desc">Manage your MCP Servers for all your agents in one place. Centralized configuration and lifecycle management for Model Context Protocol servers.</div>
+            <div class="project-meta">
+              <span class="tag">C#</span>
+              <span class="tag">MCP</span>
+              <span class="tag">Agent Infrastructure</span>
+            </div>
+          </div>
+          <div class="project-stars">&#9733; 6</div>
+        </div>
+
+        <div class="project">
+          <div>
+            <div class="project-name"><a href="https://github.com/JerrettDavis/sanction-shield" target="_blank">SanctionShield</a></div>
+            <div class="project-desc">Sanctions screening micro-SaaS. Fuzzy matching against OFAC, EU, and UN consolidated lists with configurable confidence scoring and batch CSV processing.</div>
+            <div class="project-meta">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">Supabase</span>
+            </div>
+          </div>
+          <div class="project-stars"></div>
+        </div>
+
+        <div class="project">
+          <div>
+            <div class="project-name"><a href="https://github.com/JerrettDavis/WorkflowFramework" target="_blank">WorkflowFramework</a></div>
+            <div class="project-desc">Fluent, extensible workflow engine for .NET with async-first design, middleware, branching, parallel execution, saga compensation, and rich extensibility.</div>
+            <div class="project-meta">
+              <span class="tag">C#</span>
+              <span class="tag">.NET</span>
+              <span class="tag">Pipelines</span>
+            </div>
+          </div>
+          <div class="project-stars">&#9733; 2</div>
+        </div>
+
+        <div class="project">
+          <div>
+            <div class="project-name"><a href="https://github.com/JerrettDavis/PatternKit" target="_blank">PatternKit</a></div>
+            <div class="project-desc">Fluent design pattern extensions for .NET. Source-generated implementations of common patterns with zero runtime overhead.</div>
+            <div class="project-meta">
+              <span class="tag">C#</span>
+              <span class="tag">Source Generators</span>
+              <span class="tag">Patterns</span>
+            </div>
+          </div>
+          <div class="project-stars">&#9733; 1</div>
+        </div>
+
+        <div class="project">
+          <div>
+            <div class="project-name"><a href="https://github.com/JerrettDavis/TinyBDD" target="_blank">TinyBDD</a></div>
+            <div class="project-desc">Minimal, fluent Behavior-Driven Development library for .NET. Write expressive Given/When/Then specs without the ceremony.</div>
+            <div class="project-meta">
+              <span class="tag">C#</span>
+              <span class="tag">Testing</span>
+              <span class="tag">BDD</span>
+            </div>
+          </div>
+          <div class="project-stars">&#9733; 2</div>
+        </div>
+
+        <div class="project">
+          <div>
+            <div class="project-name"><a href="https://github.com/JerrettDavis/Slncs" target="_blank">Slncs</a></div>
+            <div class="project-desc">MSBuild SDK that generates .slnx solution files from fluent C# definitions. Version-controlled, merge-friendly solutions.</div>
+            <div class="project-meta">
+              <span class="tag">C#</span>
+              <span class="tag">MSBuild SDK</span>
+              <span class="tag">Tooling</span>
+            </div>
+          </div>
+          <div class="project-stars">&#9733; 2</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">About</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm a <strong>full-stack software engineer</strong> based in Tulsa, Oklahoma, with a focus on scalable architecture, automation, and developer experience. I build tools that reduce friction — from MSBuild SDKs that eliminate boilerplate to AI assistants that can actually execute code.</p>
+          <p>My open-source work spans <strong>.NET libraries, developer tooling, AI agent platforms, and infrastructure automation</strong>. I believe the best developer tools are the ones you forget are there — they just work, every time, without ceremony.</p>
+          <p>When I'm not shipping code, I write about software engineering at <a href="https://jerrettdavis.com/blog">The Overengineer</a> — where the name is aspirational, not apologetic.</p>
+        </div>
+        <div class="stats">
+          <div>
+            <div class="stat-number">94</div>
+            <div class="stat-label">Public Repos</div>
+          </div>
+          <div>
+            <div class="stat-number">16</div>
+            <div class="stat-label">Followers</div>
+          </div>
+          <div>
+            <div class="stat-number">.NET</div>
+            <div class="stat-label">Primary Stack</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-label">Experience</div>
+      <div class="timeline">
+
+        <div class="timeline-entry">
+          <div class="timeline-date">Current</div>
+          <div>
+            <div class="timeline-role">Software Engineer</div>
+            <div class="timeline-company">Independent / Open Source</div>
+            <div class="timeline-desc">Building JD.AI (multi-provider AI agent platform), SanctionShield (compliance SaaS), and a suite of .NET developer tooling libraries. Shipping open-source infrastructure used by teams for build automation, testing, and workflow orchestration.</div>
+          </div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="timeline-date">Previous</div>
+          <div>
+            <div class="timeline-role">.NET Support Developer</div>
+            <div class="timeline-company">eLynx Technologies</div>
+            <div class="timeline-desc">Developed internal support tools enabling customer support staff to operate as power users. Built systems for broad cross-customer configuration changes without incurring downtime, improving operational efficiency across the organization.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <div>
+      <div class="footer-brand">JD Davis</div>
+      <div class="footer-tagline">The Overengineer</div>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/JerrettDavis" target="_blank">GitHub</a>
+      <a href="https://jerrettdavis.com" target="_blank">Blog</a>
+      <a href="https://jerrettdavis.com/about-me" target="_blank">About</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
